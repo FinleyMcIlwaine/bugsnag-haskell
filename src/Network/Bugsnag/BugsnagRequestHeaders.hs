@@ -24,7 +24,7 @@ instance ToJSON BugsnagRequestHeaders where
     toJSON = object . map headerToKeyValue . unBugsnagRequestHeaders
     toEncoding = pairs . foldMap headerToKeyValue . unBugsnagRequestHeaders
 
-headerToKeyValue :: KeyValue kv => (CI ByteString, ByteString) -> kv
+headerToKeyValue :: KeyValue e kv => (CI ByteString, ByteString) -> kv
 headerToKeyValue (name, value) =
     fromText (TE.decodeUtf8 (CI.original name)) .= String (TE.decodeUtf8 value)
 
